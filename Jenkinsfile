@@ -1,27 +1,35 @@
+@Library('shared-library@main') _
+
 pipeline {
+
     agent any
+
     tools {
         maven 'maven399'
     }
 
     stages {
 
-        stage('Compile') {
-            steps {
-                sh 'mvn compile'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-
         stage('Build') {
             steps {
-                sh 'mvn package'
+                mavenBuild()
             }
         }
+    }
+
+    post {
+
+        success {
+            script {
+                emailNotification.successEmail()
+            }
+        }
+
+        failure {
+            script {
+                emailNotification.failureEmail()
+            }
+        }
+
     }
 }
