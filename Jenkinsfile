@@ -29,17 +29,26 @@ pipeline
   { 
       steps 
       { 
-          withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) 
-          { 
-              sh 'echo $PASS | docker login -u $USER --password-stdin' sh 'docker push $DOCKER_IMAGE:$DOCKER_TAG' 
-          } 
+          withCredentials([usernamePassword(
+                           credentialsId: 'dockerhub-creds', 
+                           usernameVariable: 'USER', 
+                           passwordVariable: 'PASS'
+           )]) { 
+                   sh '''
+                         echo $PASS | docker login -u $USER --password-stdin
+                         docker push $DOCKER_IMAGE:$DOCKER_TAG' 
+                      '''
+               } 
       } 
   } 
   stage('Deploy Container') 
   { 
       steps 
       { 
-          sh ''' docker rm -f java-app || true docker run -d --name java-app -p 8080:8080 $DOCKER_IMAGE:$DOCKER_TAG ''' 
+          sh ''' 
+              docker rm -f java-app || true 
+              docker run -d --name java-app -p 8080:8080 $DOCKER_IMAGE:$DOCKER_TAG 
+             ''' 
       } 
   }
  } 
