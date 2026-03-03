@@ -1,5 +1,6 @@
 pipeline 
-{ agent any environment 
+{ agent any 
+ environment 
  { 
      DOCKER_IMAGE = "raj1005/java-repo-sl" 
      DOCKER_TAG = "latest" 
