@@ -1,7 +1,8 @@
 pipeline 
 { agent any environment 
  { 
-     DOCKER_IMAGE = "raj1005/java-repo-sl" DOCKER_TAG = "latest" 
+     DOCKER_IMAGE = "raj1005/java-repo-sl" 
+     DOCKER_TAG = "latest" 
  } 
  stages 
  { stage('Checkout Code') 
