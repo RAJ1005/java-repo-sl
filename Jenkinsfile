@@ -17,7 +17,7 @@ pipeline
    { 
       steps 
       {
-       withMaven(maven: 'M3')
+       withMaven(maven: 'maven399')
        { 
           sh 'mvn clean package -DskipTests' 
        }
